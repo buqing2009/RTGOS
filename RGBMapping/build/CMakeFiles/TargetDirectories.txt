@@ -1,0 +1,1 @@
+/Users/buqing2009/Documents/mycode/RGBMapping/build/CMakeFiles/rgbd_example.dir

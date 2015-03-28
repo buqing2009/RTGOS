@@ -1,0 +1,90 @@
+Determining if the Q_WS_X11 exist failed with the following output:
+Change Dir: /Users/buqing2009/Documents/mycode/RGBMapping/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec4041026183/fast"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTryCompileExec4041026183.dir/build.make CMakeFiles/cmTryCompileExec4041026183.dir/build
+/usr/local/Cellar/cmake/3.2.1/bin/cmake -E cmake_progress_report /Users/buqing2009/Documents/mycode/RGBMapping/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec4041026183.dir/CheckSymbolExists.cxx.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++    -I/usr/local/Cellar/qt/4.8.6/include -F/usr/local/Cellar/qt/4.8.6/lib    -o CMakeFiles/cmTryCompileExec4041026183.dir/CheckSymbolExists.cxx.o -c /Users/buqing2009/Documents/mycode/RGBMapping/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+/Users/buqing2009/Documents/mycode/RGBMapping/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: error: use of undeclared identifier 'Q_WS_X11'
+  return ((int*)(&Q_WS_X11))[argc];
+                  ^
+1 error generated.
+make[1]: *** [CMakeFiles/cmTryCompileExec4041026183.dir/CheckSymbolExists.cxx.o] Error 1
+make: *** [cmTryCompileExec4041026183/fast] Error 2
+
+File /Users/buqing2009/Documents/mycode/RGBMapping/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+/* */
+#include <QtCore/qglobal.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef Q_WS_X11
+  return ((int*)(&Q_WS_X11))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the Q_WS_WIN exist failed with the following output:
+Change Dir: /Users/buqing2009/Documents/mycode/RGBMapping/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1953203411/fast"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTryCompileExec1953203411.dir/build.make CMakeFiles/cmTryCompileExec1953203411.dir/build
+/usr/local/Cellar/cmake/3.2.1/bin/cmake -E cmake_progress_report /Users/buqing2009/Documents/mycode/RGBMapping/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec1953203411.dir/CheckSymbolExists.cxx.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++    -I/usr/local/Cellar/qt/4.8.6/include -F/usr/local/Cellar/qt/4.8.6/lib    -o CMakeFiles/cmTryCompileExec1953203411.dir/CheckSymbolExists.cxx.o -c /Users/buqing2009/Documents/mycode/RGBMapping/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+/Users/buqing2009/Documents/mycode/RGBMapping/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: error: use of undeclared identifier 'Q_WS_WIN'
+  return ((int*)(&Q_WS_WIN))[argc];
+                  ^
+1 error generated.
+make[1]: *** [CMakeFiles/cmTryCompileExec1953203411.dir/CheckSymbolExists.cxx.o] Error 1
+make: *** [cmTryCompileExec1953203411/fast] Error 2
+
+File /Users/buqing2009/Documents/mycode/RGBMapping/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+/* */
+#include <QtCore/qglobal.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef Q_WS_WIN
+  return ((int*)(&Q_WS_WIN))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+
+Determining if the Q_WS_QWS exist failed with the following output:
+Change Dir: /Users/buqing2009/Documents/mycode/RGBMapping/build/CMakeFiles/CMakeTmp
+
+Run Build Command:"/usr/bin/make" "cmTryCompileExec1036756106/fast"
+/Applications/Xcode.app/Contents/Developer/usr/bin/make -f CMakeFiles/cmTryCompileExec1036756106.dir/build.make CMakeFiles/cmTryCompileExec1036756106.dir/build
+/usr/local/Cellar/cmake/3.2.1/bin/cmake -E cmake_progress_report /Users/buqing2009/Documents/mycode/RGBMapping/build/CMakeFiles/CMakeTmp/CMakeFiles 1
+Building CXX object CMakeFiles/cmTryCompileExec1036756106.dir/CheckSymbolExists.cxx.o
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++    -I/usr/local/Cellar/qt/4.8.6/include -F/usr/local/Cellar/qt/4.8.6/lib    -o CMakeFiles/cmTryCompileExec1036756106.dir/CheckSymbolExists.cxx.o -c /Users/buqing2009/Documents/mycode/RGBMapping/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx
+/Users/buqing2009/Documents/mycode/RGBMapping/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:8:19: error: use of undeclared identifier 'Q_WS_QWS'
+  return ((int*)(&Q_WS_QWS))[argc];
+                  ^
+1 error generated.
+make[1]: *** [CMakeFiles/cmTryCompileExec1036756106.dir/CheckSymbolExists.cxx.o] Error 1
+make: *** [cmTryCompileExec1036756106/fast] Error 2
+
+File /Users/buqing2009/Documents/mycode/RGBMapping/build/CMakeFiles/CMakeTmp/CheckSymbolExists.cxx:
+/* */
+#include <QtCore/qglobal.h>
+
+int main(int argc, char** argv)
+{
+  (void)argv;
+#ifndef Q_WS_QWS
+  return ((int*)(&Q_WS_QWS))[argc];
+#else
+  (void)argc;
+  return 0;
+#endif
+}
+

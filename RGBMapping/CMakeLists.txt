@@ -1,0 +1,30 @@
+cmake_minimum_required(VERSION 2.8)
+PROJECT( RGBMapping )
+
+FIND_PACKAGE(RTABMap REQUIRED)
+FIND_PACKAGE(OpenCV REQUIRED)
+FIND_PACKAGE(PCL 1.7 REQUIRED)
+FIND_PACKAGE(Qt4 REQUIRED COMPONENTS QtCore QtGui QtSvg) 
+
+SET(INCLUDE_DIRS
+    ${RTABMap_INCLUDE_DIRS}
+    ${OpenCV_INCLUDE_DIRS}
+    ${PCL_INCLUDE_DIRS}
+)
+
+INCLUDE(${QT_USE_FILE})
+link_directories(${PCL_LIBRARY_DIRS})
+SET(LIBRARIES
+    ${RTABMap_LIBRARIES}
+    ${OpenCV_LIBRARIES}
+    ${QT_LIBRARIES} 
+    ${PCL_LIBRARIES}
+)
+
+INCLUDE_DIRECTORIES(${INCLUDE_DIRS})
+add_definitions(${PCL_DEFINITIONS})
+QT4_WRAP_CPP(moc_srcs SegmentBuilder.h )
+
+ADD_EXECUTABLE(rgbd_example main.cpp blu_rt_obj_seg.cpp ${moc_srcs})
+
+TARGET_LINK_LIBRARIES(rgbd_example ${LIBRARIES})
