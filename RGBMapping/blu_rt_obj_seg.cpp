@@ -22,6 +22,7 @@ OrganizedSegmentationDemo::OrganizedSegmentationDemo (CloudPtr cloud){
   mps.setMinInliers (10000);
   mps.setAngularThreshold (pcl::deg2rad (3.0)); //3 degrees
   mps.setDistanceThreshold (0.02); //2cm
+  
 
 }
 
@@ -34,7 +35,7 @@ OrganizedSegmentationDemo::func (const CloudConstPtr& cloud)
   pcl::PointCloud<pcl::Normal>::Ptr normal_cloud (new pcl::PointCloud<pcl::Normal>);
   ne.setInputCloud (cloud);
   ne.compute (*normal_cloud);
-
+  
   // Segment Planes
   double mps_start = pcl::getTime ();
   std::vector<pcl::PlanarRegion<PointT>, Eigen::aligned_allocator<pcl::PlanarRegion<PointT> > > regions;
@@ -49,8 +50,7 @@ OrganizedSegmentationDemo::func (const CloudConstPtr& cloud)
   
   double mps_end = pcl::getTime ();
   std::cout << "MPS+Refine took: " << double(mps_end - mps_start) << std::endl;
-
-  //Segment Objects
+    //Segment Objects
   pcl::PointCloud<PointT>::CloudVectorType clusters;
 
   if (regions.size () > 0)
@@ -69,13 +69,13 @@ OrganizedSegmentationDemo::func (const CloudConstPtr& cloud)
     euclidean_cluster_comparator_->setLabels (labels);
     euclidean_cluster_comparator_->setExcludeLabels (plane_labels);
     euclidean_cluster_comparator_->setDistanceThreshold (0.01f, false);
-
+    
     pcl::PointCloud<pcl::Label> euclidean_labels;
     std::vector<pcl::PointIndices> euclidean_label_indices;
     pcl::OrganizedConnectedComponentSegmentation<PointT,pcl::Label> euclidean_segmentation (euclidean_cluster_comparator_);
     euclidean_segmentation.setInputCloud (cloud);
     euclidean_segmentation.segment (euclidean_labels, euclidean_label_indices);
-
+    
     for (size_t i = 0; i < euclidean_label_indices.size (); i++)
     {
       if (euclidean_label_indices[i].indices.size () > 1000)

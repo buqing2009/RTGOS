@@ -10,6 +10,7 @@ SET(INCLUDE_DIRS
     ${RTABMap_INCLUDE_DIRS}
     ${OpenCV_INCLUDE_DIRS}
     ${PCL_INCLUDE_DIRS}
+    
 )
 
 INCLUDE(${QT_USE_FILE})
@@ -21,10 +22,14 @@ SET(LIBRARIES
     ${PCL_LIBRARIES}
 )
 
+SET(HEADER_FILES ${PROJECT_SOURCE_DIR}/blu_rt_obj_seg.h 
+		 ${PROJECT_SOURCE_DIR}/MapBuilder.h
+		 ${PROJECT_SOURCE_DIR}/SegmentBuilder.h
+)
 INCLUDE_DIRECTORIES(${INCLUDE_DIRS})
 add_definitions(${PCL_DEFINITIONS})
 QT4_WRAP_CPP(moc_srcs SegmentBuilder.h )
 
-ADD_EXECUTABLE(rgbd_example main.cpp blu_rt_obj_seg.cpp ${moc_srcs})
+ADD_EXECUTABLE(rgbd_example main.cpp blu_rt_obj_seg.cpp ${moc_srcs} ${HEADER_FILES})
 
 TARGET_LINK_LIBRARIES(rgbd_example ${LIBRARIES})

@@ -43,7 +43,7 @@ class OrganizedSegmentationDemo
     //boost::shared_ptr<pcl::visualization::PCLVisualizer> vis_; 
   protected:
     
-       
+    
     //pcl::PointCloud<PointT> prev_cloud_;
     //pcl::PointCloud<pcl::Normal> prev_normals_;
     //std::vector<pcl::PlanarRegion<PointT>, Eigen::aligned_allocator<pcl::PlanarRegion<PointT> > > prev_regions_;

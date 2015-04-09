@@ -31,16 +31,15 @@ int main(int argc, char * argv[])
         UERROR("Camera init failed!");
         exit(1);
     }   
-
     // Create an odometry thread to process camera events, it will send OdometryEvent.
     OdometryThread odomThread(new OdometryBOW());
-
 
     // Create RTAB-Map to process OdometryEvent
     Rtabmap * rtabmap = new Rtabmap();
     rtabmap->init();
     RtabmapThread rtabmapThread(rtabmap); // ownership is transfered
-
+    
+    
     // Setup handlers
     odomThread.registerToEventsManager();
     rtabmapThread.registerToEventsManager();

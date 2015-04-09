@@ -51,14 +51,14 @@ public:
         this->setWindowTitle(tr("3D Segmentation Viewer"));
         this->setMinimumWidth(1600);
         this->setMinimumHeight(600);
-	
 	//bluking code***********
 	//vis_.reset (new pcl::visualization::PCLVisualizer ("PointCloud Viewer"));
 	//vis_->setBackgroundColor(0,0,0);
 	//***********************
-        cloudViewer_ = new CloudViewer(this);
+    cloudViewer_ = new CloudViewer(this);
 	cloudViewer_2_=new CloudViewer(this);
 	cloudViewer_3_=new CloudViewer(this);
+    
 // 	viewer.reset(new pcl::visualization::PCLVisualizer ("3D Viewer"));
 // 	viewer->setBackgroundColor (0, 0, 0);
         QVBoxLayout *layout = new QVBoxLayout();
@@ -67,7 +67,7 @@ public:
 	layout->addWidget(cloudViewer_2_);
 	layout->addWidget(cloudViewer_3_);
         this->setLayout(layout);
-
+    
         qRegisterMetaType<rtabmap::Statistics>("rtabmap::Statistics");
         qRegisterMetaType<rtabmap::SensorData>("rtabmap::SensorData");
 	 
@@ -96,9 +96,10 @@ private slots:
         }
         else
         {
-            cloudViewer_->setBackgroundColor(Qt::black);
+        cloudViewer_->setBackgroundColor(Qt::black);
 	    cloudViewer_2_->setBackgroundColor(Qt::black);
 	    cloudViewer_3_->setBackgroundColor(Qt::black);
+        
         }
         if(!pose.isNull())
         {
@@ -130,6 +131,8 @@ private slots:
 		pcl::PointCloud<PointT>::CloudVectorType clusters=osd.getprevclusters();
 		pcl::PointCloud<PointT>::Ptr cluster_cloud_ptr;
 		pcl::PointCloud<PointT>::Ptr cluster_sv_ptr(new pcl::PointCloud<PointT>);
+//            pcl::PointCloud
+    
 // 		if(first_loop){
 // 		vis_->addPointCloud (cloud,"original_cloud");
 // 		first_loop=false;
@@ -149,17 +152,15 @@ private slots:
 		      cluster_cloud_ptr=boost::make_shared<pcl::PointCloud<pcl::PointXYZRGB> >(clusters[i]);
 		      if(cluster_cloud_ptr->size()){
                       cluster_cloud_ptr = util3d::transformPointCloud<pcl::PointXYZRGB>(cluster_cloud_ptr, data.localTransform());
-// 		      pcl::copyPointCloud(*cluster_cloud_ptr,*cluster_sv_ptr); 
+// 		      pcl::copyPointCloud(*cluster_cloud_ptr,*cluster_sv_ptr);
 		      *cluster_sv_ptr+=*cluster_cloud_ptr;
 		      }
 		    }
-		    
 // 		    cluster_cloud_ptr=boost::make_shared<pcl::PointCloud<pcl::PointXYZRGB> >(clusters[i]);
 //		    _segCount=cluster_cloud_ptr->size();
-		
-		   QColor qc=QColor::fromRgb(rand()%255,rand()%255,rand()%255);		   
+            QColor qc=QColor::fromRgb(rand()%255,rand()%255,rand()%255);
 		   if(!cloudViewer_2_->updateCloud("segcloud_"+i, cluster_cloud_ptr, pose))
-		    {		 
+		    {
 			   pcl::toPCLPointCloud2(*cluster_cloud_ptr, *binaryCloud_blu);
 			   if(!cloudViewer_2_->addCloud("segcloud_"+i, binaryCloud_blu, pose,false, qc))
 			   {
@@ -168,18 +169,19 @@ private slots:
 		    }
 		  }
 		    if(first_loop)
-		pcl::io::savePCDFile<pcl::PointXYZRGB>("1.pcd",*cluster_sv_ptr);
+		//::io::savePCDFile<pcl::PointXYZRGB>("1.pcd",*cluster_sv_ptr);
 		first_loop=false;
 		  pcl::copyPointCloud(*cluster_sv_ptr,*cluster_cloud_rgba);
 		  cluster_sv_result_ptr=getSupervoxelClusters(cluster_cloud_rgba);
-		  if(cluster_sv_result_ptr->size())
-                    {
-                        cluster_sv_result_ptr = util3d::transformPointCloud<pcl::PointXYZRGB>(cluster_sv_result_ptr, data.localTransform());
-                    }
+//		  if(cluster_sv_result_ptr->size())
+//                    {
+//                        cluster_sv_result_ptr = util3d::transformPointCloud<pcl::PointXYZRGB>(cluster_sv_result_ptr, data.localTransform());
+//                    }
 		  if(!cloudViewer_3_->addOrUpdateCloud("spuervoxel_cloud", cluster_sv_result_ptr, pose))
                 {
                     UERROR("Adding spuervoxel_cloud to viewer failed!");
                 }
+            
 		  
 		}
 		
@@ -302,13 +304,12 @@ private slots:
                     {
                         UERROR("Adding cloud %d to viewer failed!", iter->first);
                     }
-                   
                 }
                 
             }
         }
        // UERROR("clusters contains: %d", clouds.contains("segcloud_0"));
-       
+        
 
         cloudViewer_->update();
 
@@ -340,7 +341,7 @@ pcl::PointCloud<pcl::PointXYZRGB>::Ptr getSupervoxelClusters(pcl::PointCloud<pcl
     //////////////////////////////  //////////////////////////////
   ////// This is how to use supervoxels
   //////////////////////////////  //////////////////////////////
-
+  
   pcl::SupervoxelClustering<pcl::PointXYZRGBA> super (voxel_resolution, seed_resolution);
   //if (disable_transform)
   //super.setUseSingleCameraTransform (false);
@@ -350,12 +351,11 @@ pcl::PointCloud<pcl::PointXYZRGB>::Ptr getSupervoxelClusters(pcl::PointCloud<pcl
   super.setNormalImportance (normal_importance);
 
   std::map <uint32_t, pcl::Supervoxel<pcl::PointXYZRGBA>::Ptr > supervoxel_clusters;
-
-  UERROR ("Extracting supervoxels!\n");
+  //UERROR ("Extracting supervoxels!\n");
   super.extract (supervoxel_clusters);
-  UERROR("Found %d supervoxels\n", supervoxel_clusters.size ());
+  //UERROR("Found %d supervoxels\n", supervoxel_clusters.size ());
 
-  
+//    supervoxel_clusters->addPointCloud();
 
 //   pcl::PointCloud<pcl::PointXYZRGBA>::Ptr voxel_centroid_cloud = super.getVoxelCentroidCloud ();
 //   pcl::PointCloud<pcl::PointXYZRGB>::Ptr voxel_centroid_cloud_rgb(new pcl::PointCloud<pcl::PointXYZRGB>);
@@ -363,6 +363,39 @@ pcl::PointCloud<pcl::PointXYZRGB>::Ptr getSupervoxelClusters(pcl::PointCloud<pcl
      pcl::PointCloud<pcl::PointXYZRGBA>::Ptr colored_voxrl_cloud=super.getColoredVoxelCloud();
      pcl::PointCloud<pcl::PointXYZRGB>::Ptr colored_voxrl_cloud_rgb(new pcl::PointCloud<pcl::PointXYZRGB>);
      pcl::copyPointCloud(*colored_voxrl_cloud,*colored_voxrl_cloud_rgb);
+    
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr dispCloud(new pcl::PointCloud<pcl::PointXYZRGB>);
+    pcl::copyPointCloud(*cloud, *dispCloud);
+    double minDistThresh = 0.5;
+    for (int i=0; i<dispCloud->points.size(); i++) {
+        pcl::PointXYZRGB pt = dispCloud->points[i];
+        if (isnan(pt.x) || isnan(pt.y) || isnan(pt.z)) {
+            continue;
+        }
+        double minDist = 1000;
+        int minIdx = 0;
+        for (int j=0; j<colored_voxrl_cloud_rgb->points.size(); j++) {
+            pcl::PointXYZRGB cpt = colored_voxrl_cloud_rgb->points[j];
+            if (isnan(cpt.x) || isnan(cpt.y) || isnan(cpt.z)) {
+                continue;
+            }
+            double dist = (pt.x-cpt.x)*(pt.x-cpt.x)+(pt.y-cpt.y)*(pt.y-cpt.y)+(pt.z-cpt.z)*(pt.z-cpt.z);
+            if (dist<minDist) {
+                minDist = dist;
+                minIdx = j;
+            }
+        }
+        if (minDist<minDistThresh) {
+            pcl::PointXYZRGB cpt = colored_voxrl_cloud_rgb->points[minIdx];
+            dispCloud->points[i].r = cpt.r;
+            dispCloud->points[i].g = cpt.g;
+            dispCloud->points[i].b = cpt.b;
+            //std::cout<<dispCloud->points[i].rgb<<" "<<cpt.rgb<<std::endl;
+        }
+        else {
+            dispCloud->points[i].r = dispCloud->points[i].g = dispCloud->points[i].b = 0;
+        }
+    }
 
   //pcl::PointCloud<pcl::PointXYZRGB>::Ptr labeled_voxel_cloud = super.getLabeledVoxelCloud ();
   //viewer->addPointCloud (labeled_voxel_cloud, "labeled voxels");
@@ -404,7 +437,7 @@ pcl::PointCloud<pcl::PointXYZRGB>::Ptr getSupervoxelClusters(pcl::PointCloud<pcl
 //     label_itr = supervoxel_adjacency.upper_bound (supervoxel_label);
 //   }
  //return voxel_centroid_cloud_rgb;
-     return colored_voxrl_cloud_rgb;
+     return dispCloud;
 }
 
 // void
